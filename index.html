@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Text Replacement</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+      }
+
+      table {
+        width: 100%;
+        margin-bottom: 20px;
+        border-collapse: collapse;
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid black;
+      }
+
+      th,
+      td {
+        padding: 8px;
+        text-align: left;
+      }
+
+      textarea {
+        width: 100%;
+        height: 100px;
+        margin-bottom: 10px;
+      }
+
+      button {
+        padding: 10px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      input[type="text"] {
+        width: 100%;
+        padding: 5px;
+        box-sizing: border-box;
+      }
+
+      p {
+        margin: 10px 0;
+        font-size: 16px;
+      }
+
+      .error {
+        background-color: #ffcccc;
+      }
+
+      .error-message {
+        color: red;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+
+  <body>
+    <h2>Text Replacement Tool</h2>
+
+    <textarea id="inputText" placeholder="Enter text here..."></textarea>
+    <button onclick="replaceText()">Replace Text</button>
+    <textarea
+      id="outputText"
+      placeholder="Result will appear here..."
+      readonly
+    ></textarea>
+    <p id="errorMessage" class="error-message"></p>
+
+    <h3>Short Vowels</h3>
+    <table>
+      <tr>
+        <th>Original</th>
+        <th>Replacement</th>
+      </tr>
+      <tr>
+        <td><input type="text" value="O/" /></td>
+        <td>ɔ</td>
+      </tr>
+      <tr>
+        <td><input type="text" value="AH" /></td>
+        <td>æ</td>
+      </tr>
+      <tr>
+        <td><input type="text" value="UH" /></td>
+        <td>ɐ</td>
+      </tr>
+      <tr>
+        <td><input type="text" value="I/" /></td>
+        <td>ɪ</td>
+      </tr>
+      <tr>
+        <td><input type="text" value="U/" /></td>
+        <td>ʊ</td>
+      </tr>
+      <tr>
+        <td><input type="text" value="E/" /></td>
+        <td>ə</td>
+      </tr>
+    </table>
+
+    <h3>Long Vowels</h3>
+    <table>
+      <tr>
+        <th>Original</th>
+        <th>Replacement</th>
+      </tr>
+      <tr>
+        <td><input type="text" value="AR" /></td>
+        <td>ɐː</td>
+      </tr>
+      <tr>
+        <td><input type="text" value="OO" /></td>
+        <td>ʉː</td>
+      </tr>
+      <tr>
+        <td><input type="text" value="ER" /></td>
+        <td>ɜː</td>
+      </tr>
+    </table>
+
+    <h3>Diphthongs</h3>
+    <table>
+      <tr>
+        <th>Original</th>
+        <th>Replacement</th>
+      </tr>
+      <tr>
+        <td><input type="text" value="AY" /></td>
+        <td>æɪ</td>
+      </tr>
+      <tr>
+        <td><input type="text" value="II" /></td>
+        <td>ɑe</td>
+      </tr>
+      <tr>
+        <td><input type="text" value="OY" /></td>
+        <td>oɪ</td>
+      </tr>
+      <tr>
+        <td><input type="text" value="UE" /></td>
+        <td>ʊə</td>
+      </tr>
+      <tr>
+        <td><input type="text" value="OO" /></td>
+        <td>əʉ</td>
+      </tr>
+      <tr>
+        <td><input type="text" value="OW" /></td>
+        <td>æɔ</td>
+      </tr>
+      <tr>
+        <td><input type="text" value="IE" /></td>
+        <td>ɪə</td>
+      </tr>
+    </table>
+
+    <h3>Consonants</h3>
+    <table>
+      <tr>
+        <th>Original</th>
+        <th>Replacement</th>
+      </tr>
+      <tr>
+        <td><input type="text" value="CH" /></td>
+        <td>tʃ</td>
+      </tr>
+      <tr>
+        <td><input type="text" value="DZ" /></td>
+        <td>dʒ</td>
+      </tr>
+      <tr>
+        <td><input type="text" value="TH" /></td>
+        <td>θ</td>
+      </tr>
+      <tr>
+        <td><input type="text" value="DH" /></td>
+        <td>ð</td>
+      </tr>
+      <tr>
+        <td><input type="text" value="SH" /></td>
+        <td>ʃ</td>
+      </tr>
+      <tr>
+        <td><input type="text" value="ZH" /></td>
+        <td>ʒ</td>
+      </tr>
+      <tr>
+        <td><input type="text" value="NG" /></td>
+        <td>ŋ</td>
+      </tr>
+    </table>
+
+    <script>
+      document.querySelectorAll("table input").forEach((input) => {
+        input.addEventListener("input", function () {
+          let inputValues = new Map();
+          let isValid = true;
+          let errorMessage = document.getElementById("errorMessage");
+          errorMessage.textContent = "";
+
+          document.querySelectorAll("table input").forEach((inp) => {
+            let value = inp.value.trim();
+            if (!/^[A-Z\W]{2,}[a-z]*$/.test(value)) {
+              isValid = false;
+              inp.classList.add("error");
+            } else {
+              inp.classList.remove("error");
+            }
+
+            if (inputValues.has(value) && value !== "") {
+              inputValues.get(value).classList.add("error");
+              inp.classList.add("error");
+              isValid = false;
+            } else {
+              inputValues.set(value, inp);
+            }
+          });
+
+          if (!isValid) {
+            errorMessage.textContent = "Duplicate or invalid input detected.";
+          }
+        });
+      });
+
+      function replaceText() {
+        var inputText = document.getElementById("inputText").value;
+        var outputText = inputText;
+        var tableRows = document.querySelectorAll("table tr");
+        var errorMessage = document.getElementById("errorMessage");
+        var isValid = true;
+
+        errorMessage.textContent = "";
+        document
+          .querySelectorAll("td input")
+          .forEach((input) => input.classList.remove("error"));
+
+        tableRows.forEach(function (row) {
+          var inputField =
+            row.cells[row.cells.length === 3 ? 1 : 0]?.querySelector("input");
+          if (inputField) {
+            var originalWord = inputField.value.trim();
+            if (!/^[A-Z\W]{2,}[a-z]*$/.test(originalWord)) {
+              isValid = false;
+              inputField.classList.add("error");
+            }
+          }
+        });
+
+        if (!isValid) {
+          errorMessage.textContent =
+            "Error: All original text must be exactly 2 uppercase letters!";
+          return;
+        }
+        var replacements = {};
+        tableRows.forEach(function (row) {
+          var inputField =
+            row.cells[row.cells.length === 3 ? 1 : 0]?.querySelector("input");
+          if (inputField) {
+            var originalWord = inputField.value.trim();
+            var replacementWord =
+              row.cells[row.cells.length === 3 ? 2 : 1].textContent.trim();
+            // if (inputText == originalWord) {
+            // var regex = new RegExp(originalWord, "g");
+            // outputText = inputText.replace(regex, replacementWord);
+
+            // outputText = replacementWord;
+            // }
+            if (originalWord && replacementWord) {
+              replacements[originalWord] = replacementWord;
+            }
+            //         if (originalWord && replacementWord) {
+            //     var regex = new RegExp(`(?<=^|\\s)${originalWord}(?=\\s|$)`, "g");
+            //     outputText = outputText.replace(regex, replacementWord);
+            // }
+          }
+        });
+
+        var regex = new RegExp(Object.keys(replacements).join("|"), "g");
+        outputText = inputText.replace(regex, (match) => replacements[match]);
+        console.log(outputText, "outputText");
+
+        document.getElementById("outputText").value = outputText;
+      }
+    </script>
+  </body>
+</html>
