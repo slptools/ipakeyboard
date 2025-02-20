@@ -312,7 +312,6 @@
             }
           }
         });
-	replacements["r"] = "ɹ";
         while (inputText.length > 0) {
           let chk = inputText.substring(0, 2);
           if (replacements.hasOwnProperty(chk)) {
@@ -323,7 +322,7 @@
             inputText = inputText.substring(1);
           }
         }
-
+	outputText.replaceAll("r", "ɹ")
         document.getElementById("outputText").value = outputText;
       }
     </script>
