@@ -5,20 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>IPA Keyboard</title>
     <style>
-       container {
-            display: flex;
-            justify-content: space-around;
-        }
-
       body {
         font-family: Arial, sans-serif;
-        margin: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .container {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 10px;
       }
 
       table {
-        width: 22%;
-        margin-bottom: 20px;
+        width: 24%;
+        margin: 5px;
         border-collapse: collapse;
+        font-size: 15px;
       }
 
       table,
@@ -33,18 +44,25 @@
         text-align: left;
       }
 
+      table,
+      tr {
+	font-size: 14px; 
+        height: 20px;
+      }
+
       textarea {
         width: 100%;
-        height: 100px;
-        margin-bottom: 10px;
+        height: 94px;
+        margin-bottom: 3px;
       }
 
       button {
-        padding: 10px;
+        padding: 7px;
         background-color: #4caf50;
         color: white;
         border: none;
         cursor: pointer;
+	margin: 1px;	
       }
 
       button:hover {
@@ -72,9 +90,8 @@
       }
     </style>
   </head>
-
   <body>
-    <h2>IPA Keyboard</h2>
+    <h4>IPA Keyboard</h4>
 
     <textarea id="inputText" placeholder="Enter text here..."></textarea>
     <button onclick="replaceText()">Replace Text</button>
@@ -83,134 +100,170 @@
       placeholder="Result will appear here..."
       readonly
     ></textarea>
+<hr>
     <p id="errorMessage" class="error-message"></p>
 
-        <div class="container">
+    <div class="container">
+      <table>
+        <tr>
+          <th colspan="2">Short Vowels</th>
+        </tr>
+        <tr>
+          <th>Original</th>
+          <th>Replacement</th>
+          <th>Example</th>
+        </tr>
+        <tr>
+          <td><input type="text" value="O/" /></td>
+          <td>ɔ</td>
+          <td>h<strong>o</strong>t</td>
+        </tr>
+        <tr>
+          <td><input type="text" value="AH" /></td>
+          <td>æ</td>
+          <td>h<strong>a</strong>t</td>
+        </tr>
+        <tr>
+          <td><input type="text" value="UH" /></td>
+          <td>ɐ</td>
+          <td>h<strong>u</strong>t</td>
+        </tr>
+        <tr>
+          <td><input type="text" value="I/" /></td>
+          <td>ɪ</td>
+          <td>h<strong>i</strong>d</td>
+        </tr>
+        <tr>
+          <td><input type="text" value="U/" /></td>
+          <td>ʊ</td>
+          <td>h<strong>u</strong>t</td>
+        </tr>
+        <tr>
+          <td><input type="text" value="E/" /></td>
+          <td>ə</td>
+          <td><strong>a</strong>bout</td>
+        </tr>
+      </table>
 
-    <table>
-      <tr><th colspan="2">Short Vowels</th></tr>
-            <tr>
-        <th>Original</th>
-        <th>Replacement</th>
-      </tr>
-    <tr>
-        <td><input type="text" value="O/" /></td>
-        <td>ɔ</td>
-      </tr>
-      <tr>
-        <td><input type="text" value="AH" /></td>
-        <td>æ</td>
-      </tr>
-      <tr>
-        <td><input type="text" value="UH" /></td>
-        <td>ɐ</td>
-      </tr>
-      <tr>
-        <td><input type="text" value="I/" /></td>
-        <td>ɪ</td>
-      </tr>
-      <tr>
-        <td><input type="text" value="U/" /></td>
-        <td>ʊ</td>
-      </tr>
-      <tr>
-        <td><input type="text" value="E/" /></td>
-        <td>ə</td>
-      </tr>
-    </table>
+      <table>
+        <tr>
+          <th colspan="2">Long Vowels</th>
+        </tr>
+        <tr>
+          <th>Original</th>
+          <th>Replacement</th>
+          <th>Example</th>
+        </tr>
+        <tr>
+          <td><input type="text" value="AR" /></td>
+          <td>ɐː</td>
+          <td>h<strong>ar</strong>d</td>
+        </tr>
+        <tr>
+          <td><input type="text" value="UU" /></td>
+          <td>ʉː</td>
+          <td>h<strong>oo</strong>t</td>
+        </tr>
+        <tr>
+          <td><input type="text" value="ER" /></td>
+          <td>ɜː</td>
+          <td>h<strong>ear</strong>d</td>
+        </tr>
+      </table>
 
-    <table>
-      <tr><th colspan="2">Long Vowels</th></tr>
-      <tr>
-        <th>Original</th>
-        <th>Replacement</th>
-      </tr>
-      <tr>
-        <td><input type="text" value="AR" /></td>
-        <td>ɐː</td>
-      </tr>
-      <tr>
-        <td><input type="text" value="OO" /></td>
-        <td>ʉː</td>
-      </tr>
-      <tr>
-        <td><input type="text" value="ER" /></td>
-        <td>ɜː</td>
-      </tr>
-    </table>
+      <table>
+        <tr>
+          <th colspan="2">Diphthongs</th>
+        </tr>
+        <tr>
+          <th>Original</th>
+          <th>Replacement</th>
+          <th>Example</th>
+        </tr>
+        <tr>
+          <td><input type="text" value="AY" /></td>
+          <td>æɪ</td>
+          <td>h<strong>a</strong>te</td>
+        </tr>
+        <tr>
+          <td><input type="text" value="II" /></td>
+          <td>ɑe</td>
+          <td>h<strong>ei</strong>ght</td>
+        </tr>
+        <tr>
+          <td><input type="text" value="OY" /></td>
+          <td>oɪ</td>
+          <td>h<strong>oi</strong>st</td>
+        </tr>
+        <tr>
+          <td><input type="text" value="UE" /></td>
+          <td>ʊə</td>
+          <td>p<strong>ure</strong></td>
+        </tr>
+        <tr>
+          <td><input type="text" value="OH" /></td>
+          <td>əʉ</td>
+          <td>h<strong>oe</strong>d</td>
+        </tr>
+        <tr>
+          <td><input type="text" value="OW" /></td>
+          <td>æɔ</td>
+          <td>h<strong>ow</strong>l</td>
+        </tr>
+        <tr>
+          <td><input type="text" value="IE" /></td>
+          <td>ɪə</td>
+          <td>h<strong>ear</strong></td>
+        </tr>
+      </table>
 
-    <table>
-      <tr><th colspan="2">Diphthongs</th></tr>
-      <tr>
-        <th>Original</th>
-        <th>Replacement</th>
-      </tr>
-      <tr>
-        <td><input type="text" value="AY" /></td>
-        <td>æɪ</td>
-      </tr>
-      <tr>
-        <td><input type="text" value="II" /></td>
-        <td>ɑe</td>
-      </tr>
-      <tr>
-        <td><input type="text" value="OY" /></td>
-        <td>oɪ</td>
-      </tr>
-      <tr>
-        <td><input type="text" value="UE" /></td>
-        <td>ʊə</td>
-      </tr>
-      <tr>
-        <td><input type="text" value="OO" /></td>
-        <td>əʉ</td>
-      </tr>
-      <tr>
-        <td><input type="text" value="OW" /></td>
-        <td>æɔ</td>
-      </tr>
-      <tr>
-        <td><input type="text" value="IE" /></td>
-        <td>ɪə</td>
-      </tr>
-    </table>
+      <table>
+        <tr>
+          <th colspan="2">Consonants</th>
+        </tr>
+        <tr>
+          <th>Original</th>
+          <th>Replacement</th>
+          <th>Example</th>
+        </tr>
+        <tr>
+          <td><input type="text" value="CH" /></td>
+          <td>tʃ</td>
+          <td><strong>ch</strong>oose</td>
+        </tr>
+        <tr>
+          <td><input type="text" value="DZ" /></td>
+          <td>dʒ</td>
+          <td><strong>j</strong>udge</td>
+        </tr>
+        <tr>
+          <td><input type="text" value="TH" /></td>
+          <td>θ</td>
+          <td><strong>th</strong>ink</td>
+        </tr>
+        <tr>
+          <td><input type="text" value="DH" /></td>
+          <td>ð</td>
+          <td><strong>th</strong>ese</td>
+        </tr>
+        <tr>
+          <td><input type="text" value="SH" /></td>
+          <td>ʃ</td>
+          <td><strong>sh</strong>e</td>
+        </tr>
+        <tr>
+          <td><input type="text" value="ZH" /></td>
+          <td>ʒ</td>
+          <td>bei<strong>ge</strong></td>
+        </tr>
+        <tr>
+          <td><input type="text" value="NG" /></td>
+          <td>ŋ</td>
+          <td>si<strong>ng</strong></td>
+        </tr>
+      </table>
+    </div>
 
-    <table>
-      <tr><th colspan="2">Consonants</th></tr>
-      <tr>
-        <th>Original</th>
-        <th>Replacement</th>
-      </tr>
-      <tr>
-        <td><input type="text" value="CH" /></td>
-        <td>tʃ</td>
-      </tr>
-      <tr>
-        <td><input type="text" value="DZ" /></td>
-        <td>dʒ</td>
-      </tr>
-      <tr>
-        <td><input type="text" value="TH" /></td>
-        <td>θ</td>
-      </tr>
-      <tr>
-        <td><input type="text" value="DH" /></td>
-        <td>ð</td>
-      </tr>
-      <tr>
-        <td><input type="text" value="SH" /></td>
-        <td>ʃ</td>
-      </tr>
-      <tr>
-        <td><input type="text" value="ZH" /></td>
-        <td>ʒ</td>
-      </tr>
-      <tr>
-        <td><input type="text" value="NG" /></td>
-        <td>ŋ</td>
-      </tr>
-    </table>
-        </div>
     <script>
       document.querySelectorAll("table input").forEach((input) => {
         input.addEventListener("input", function () {
@@ -221,7 +274,8 @@
 
           document.querySelectorAll("table input").forEach((inp) => {
             let value = inp.value.trim();
-            if (!/^[A-Z\W]{2,}[a-z]*$/.test(value)) {
+
+            if (!/^[A-Z\W]{2,2}$/.test(value)) {
               isValid = false;
               inp.classList.add("error");
             } else {
@@ -245,60 +299,30 @@
 
       function replaceText() {
         var inputText = document.getElementById("inputText").value;
-        var outputText = inputText;
-        var tableRows = document.querySelectorAll("table tr");
-        var errorMessage = document.getElementById("errorMessage");
-        var isValid = true;
+        var outputText = "";
 
-        errorMessage.textContent = "";
-        document
-          .querySelectorAll("td input")
-          .forEach((input) => input.classList.remove("error"));
-
-        tableRows.forEach(function (row) {
-          var inputField =
-            row.cells[row.cells.length === 3 ? 1 : 0]?.querySelector("input");
-          if (inputField) {
-            var originalWord = inputField.value.trim();
-            if (!/^[A-Z\W]{2,}[a-z]*$/.test(originalWord)) {
-              isValid = false;
-              inputField.classList.add("error");
-            }
-          }
-        });
-
-        if (!isValid) {
-          errorMessage.textContent =
-            "Error: All original text must be exactly 2 uppercase letters!";
-          return;
-        }
         var replacements = {};
-        tableRows.forEach(function (row) {
-          var inputField =
-            row.cells[row.cells.length === 3 ? 1 : 0]?.querySelector("input");
-          if (inputField) {
+        document.querySelectorAll("table tr").forEach(function (row) {
+          var inputField = row.cells[0]?.querySelector("input");
+          var replacementText = row.cells[1]?.textContent.trim();
+          if (inputField && replacementText) {
             var originalWord = inputField.value.trim();
-            var replacementWord =
-              row.cells[row.cells.length === 3 ? 2 : 1].textContent.trim();
-            // if (inputText == originalWord) {
-            // var regex = new RegExp(originalWord, "g");
-            // outputText = inputText.replace(regex, replacementWord);
-
-            // outputText = replacementWord;
-            // }
-            if (originalWord && replacementWord) {
-              replacements[originalWord] = replacementWord;
+            if (originalWord) {
+              replacements[originalWord] = replacementText;
             }
-            //         if (originalWord && replacementWord) {
-            //     var regex = new RegExp(`(?<=^|\\s)${originalWord}(?=\\s|$)`, "g");
-            //     outputText = outputText.replace(regex, replacementWord);
-            // }
           }
         });
-
-        var regex = new RegExp(Object.keys(replacements).join("|"), "g");
-        outputText = inputText.replace(regex, (match) => replacements[match]);
-        console.log(outputText, "outputText");
+	replacements["r"] = "ɹ";
+        while (inputText.length > 0) {
+          let chk = inputText.substring(0, 2);
+          if (replacements.hasOwnProperty(chk)) {
+            outputText += replacements[chk];
+            inputText = inputText.substring(2);
+          } else {
+            outputText += inputText[0];
+            inputText = inputText.substring(1);
+          }
+        }
 
         document.getElementById("outputText").value = outputText;
       }
